@@ -46,9 +46,7 @@ self.addEventListener('fetch', function (event) {
     console.log('fetch', event)
     event.respondWith(
         caches.match(event.request).then(function (res) {
-            if (res) {
-                return res;
-            }
+            if (res) return res;
             requestBackend(event);
         })
     )
@@ -59,9 +57,7 @@ function requestBackend (event) {
     var url = event.request.clone();
     return fetch(url).then(function (res) {
         //if not a valid response send the error
-        if (!res || res.status !== 200 || res.type !== 'basic') {
-            return res;
-        }
+        if (!res || res.status !== 200 || res.type !== 'basic') return res;
 
         var response = res.clone();
 
