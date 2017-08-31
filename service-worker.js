@@ -11,7 +11,10 @@ var CACHE_FILES = [
     '/js/cache-polyfill.js',
     '/images/background.jpeg',
     '/images/serviceWorker.png',
-    '/css/*',
+    '/css/ppt.css',
+    '/css/reset.css',
+    '/css/styles.css',
+    '/css/Roboto.woff2',
 ];
 
 
@@ -51,7 +54,7 @@ self.addEventListener('fetch', function (event) {
     )
 });
 
-function requestBackend(event) {
+function requestBackend (event) {
     console.log('requestBackend', event)
     var url = event.request.clone();
     return fetch(url).then(function (res) {
