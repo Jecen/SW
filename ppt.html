@@ -91,8 +91,8 @@
     </div>
 
     <div class="step" data-x="3000" data-y="2000" data-rotate="90">
-        <h3 style="margin-bottom: 30px;font-size:35px;">更新缓存资源</h3>
-        <pre style="font-size: 20px;margin: 0 0 5px ;background-color:bisque;color:#333;padding:20px 10px 0;border-radius: 10px;">
+      <h3 style="margin-bottom: 30px;font-size:35px;">更新缓存资源</h3>
+      <pre style="font-size: 20px;margin: 0 0 5px ;background-color:bisque;color:#333;padding:20px 10px 0;border-radius: 10px;">
           self.addEventListener('activate', function (event) {
               console.log('activate', event)
               event.waitUntil(
@@ -109,8 +109,8 @@
     </div>
 
     <div class="step" data-x="3000" data-y="3000" data-rotate="90">
-        <h3 style="margin-bottom: 30px;font-size:35px;">监听Fetch事件</h3>
-        <pre style="font-size: 20px;margin: 0 0 5px ;background-color:bisque;color:#333;padding:20px 10px 0;border-radius: 10px;">
+      <h3 style="margin-bottom: 30px;font-size:35px;">监听Fetch事件</h3>
+      <pre style="font-size: 20px;margin: 0 0 5px ;background-color:bisque;color:#333;padding:20px 10px 0;border-radius: 10px;">
           self.addEventListener('fetch', function (event) {
               console.log('fetch', event)
               event.respondWith(
@@ -138,6 +138,15 @@
               })
           }
         </pre>
+    </div>
+
+    <div class="step" data-x="3000" data-y="4000" data-rotate="90">
+      <h3 style="margin-bottom: 30px;font-size:30px;">推送（ Push API ）</h3>
+      <p style="font-size: 25px;margin: 10px 0;"> Push API 让推送服务具备了向 web 应用推送消息的能力；</p>
+      <p style="font-size: 25px;margin: 10px 0;"> 它定义了 web 应用如何向推送服务发起订阅、如何响应推送消息、web 应用和服务器与推送服务之间的鉴权与加密机制；</p>
+      <p style="font-size: 25px;margin: 10px 0;"> 由于 Push API 并不依赖 web 应用与浏览器 UI 存活，所以即使是在 web 应用与浏览器未被用户打开的时候，也可以通过后台进程接受推送消息并调用 Notification API 向用户发出通知</p>
+      <h3 style="margin: 30px 0;font-size:30px;">通知（ Notification API ）</h3>
+      <p style="font-size: 25px;margin: 10px 0;"> 负责所有与通知本身相关的机制，如通知权限管理、向操作系统发起通知、通知类型与音效，以及提供通知被点击或关闭时的回调等；</p>
     </div>
 
     <div class="step" data-x="0" data-y="0" data-scale="10">

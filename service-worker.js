@@ -2,19 +2,18 @@ importScripts('js/cache-polyfill.js');
 
 var CACHE_VERSION = 'app-v1';
 var CACHE_FILES = [
-    '/',
-    '/index.html',
-    '/ppt.html',
-    '/service-worker.js',
-    '/js/app.js',
-    '/js/impress.js',
-    '/js/cache-polyfill.js',
-    '/images/background.jpeg',
-    '/images/serviceWorker.png',
-    '/css/ppt.css',
-    '/css/reset.css',
-    '/css/styles.css',
-    '/css/Roboto.woff2',
+    'index.html',
+    'ppt.html',
+    'service-worker.js',
+    'js/app.js',
+    'js/impress.js',
+    'js/cache-polyfill.js',
+    'images/background.jpeg',
+    'images/serviceWorker.png',
+    'css/ppt.css',
+    'css/reset.css',
+    'css/styles.css',
+    'css/Roboto.woff2',
 ];
 
 
