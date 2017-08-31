@@ -3,12 +3,15 @@ importScripts('js/cache-polyfill.js');
 var CACHE_VERSION = 'app-v1';
 var CACHE_FILES = [
     '/',
-    'ppt.html',
-    'service-worker.js',
-    'js',
-    'images',
-    'css',
-    // 'https://fonts.googleapis.com/css?family=Roboto:100',
+    '/index.html',
+    '/ppt.html',
+    '/service-worker.js',
+    '/js/app.js',
+    '/js/impress.js',
+    '/js/cache-polyfill.js',
+    '/images/background.jpeg',
+    '/images/serviceWorker.png',
+    '/css/*',
 ];
 
 
