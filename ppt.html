@@ -21,31 +21,89 @@
 
   <div id="impress">
 
-    <div class="step slide" data-x="0" data-y="-1000">
-      Service Worker 1
+    <div class="step" data-x="0" data-y="-1000">
+      <h3 style="margin-bottom: 20px;">Service Worker 的背景</h3>
+      <p style="font-size: 25px;margin-bottom: 10px;">前生：AppCache</p>
+      <p style="font-size: 20px;margin: 0 0 5px 20px;">AppCache 最初是作为 HTML5 规范的一部分引入，用以解决离线 web 应用程序的问题。</p>
+      <p style="font-size: 20px;margin: 0 0 5px 20px;">AppCache 最终被发现是不实用的和充满陷阱的。因此它已被废弃，被 Service Workers 有效的取代。</p>
+      <p style="font-size: 25px;margin: 10px 0;">今世：Service workers</p>
+      <p style="font-size: 20px;margin: 0 0 5px 20px;">Service workers提供了一个更具前瞻性的离线应用解决方案，通过更加程序化的语言书写规则替代 AppCache 的声明式书写方式。</p>
+      <p style="font-size: 20px;margin: 0 0 5px 20px;">Service Workers 在浏览器后台进程中持续的执行其代码。它是事件驱动的，这意味着在 Service Worker 的作用域范围内触发的事件会驱动其行为。</p>
     </div>
 
-    <div class="step slide" data-x="1000" data-y="-1000">
-      Service Worker 2
+    <div class="step" data-x="1000" data-y="-1000">
+      <h3 style="margin-bottom: 30px;font-size:30px;"> 注册 Service Worker </h3>
+      <p style="font-size: 20px;margin: 0 0 5px 20px;">在前端代码中某一处执行以下代码即可</p>
+      <pre style="font-size: 20px;margin: 0 0 5px ;background-color:bisque;color:#333;padding:20px 10px 10px;border-radius: 10px;">
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.register('./service-worker.js', {scope: './'})
+              .then(function (registration) {
+                  console.log(registration);
+              })
+              .catch(function (e) {
+                  console.error(e);
+              })
+        } else {
+            console.log('Service Worker is not supported in this browser.')
+        }
+      </pre>
+      <p style="font-size: 20px;margin: 0 0 5px 20px;">这将告诉浏览器在哪里找到你的 Service Worker 的实现，浏览器将查找对应的（/service-worker.js）文件，并将它保存在你正在访问的域名下，这个文件将包含所有你自己定义的 Service Worker 事件处理程序</p>
     </div>
 
-    <div class="step slide" data-x="2000" data-y="-1000">
-      Service Worker 3
+    <div class="step" data-x="2000" data-y="-1000">
+      <h3 style="margin-bottom: 30px;font-size:30px;">注意:</h3>
+      <p style="font-size: 25px;margin: 10px 0;">在执行注册的操作的同时也确认了你的ServiceWorker的作用范围是在URL的根路径下。这意味着在你的根路径下的任何请求，都将通过触发事件的方式告诉 Service Worker。一个文件路径为/js/service-worker.js的文件就仅仅可以捕获http://{host}/js该链接下的请求。</p>
+      <p style="font-size: 25px;margin: 10px 0;">另外，你也可以通过将第二个参数传入给register方法来明确地设置 Service Worker 的作用域范围：</p>
+      <pre style="font-size: 20px;margin: 0 0 5px ;background-color:bisque;color:#333;padding:20px 10px 0;border-radius: 10px;">
+          navigator.serviceWorker.register('/sw.js', { scope: '/js' })
+      </pre>
     </div>
 
-    <div class="step slide" data-x="3000" data-y="-1000">
-      Service Worker 4
+    <div class="step" data-x="3000" data-y="-1000">
+      <h3 style="margin-bottom: 30px;font-size:30px;">Service Worker 的生命周期</h3>
+      <image src="./images/serviceWorker.png" style="width: 80%;height: 80%;" />
     </div>
 
-    <div class="step slide" data-x="3000" data-y="0" data-rotate="90">
-      cache Api 1
+    <div class="step" data-x="3000" data-y="0" data-rotate="90">
+      <h3 style="margin-bottom: 30px;font-size:35px;">使用 service worker 实现离线缓存</h3>
+      <p style="margin-bottom: 30px;font-size:30px;">
+        实际上离线缓存功能，就是我们根据WebApp的需要，事先将缓存策略写入到service-worker.js中。接下来通过分析service-worker.js的代码来介绍该功能的实现。
+      </p>
     </div>
 
-    <div class="step slide" data-x="3000" data-y="1000" data-rotate="90">
-      cache Api 2
+    <div class="step" data-x="3000" data-y="1000" data-rotate="90">
+      <h3 style="margin-bottom: 30px;font-size:35px;">缓存网页资源</h3>
+      <pre style="font-size: 20px;margin: 0 0 5px ;background-color:bisque;color:#333;padding:20px 10px 0;border-radius: 10px;">
+          var CACHE_VERSION = 'app-v1';
+          var CACHE_FILES = [
+              'service-worker.js',
+              '/jacendemo.github.io/',
+              '/jacendemo.github.io/ppt.html',
+              'js/app.js',
+              'js/impress.js',
+              'images/background.jpeg',
+              'css/reset.css',
+              'css/styles.css',
+              'css/Roboto.woff2',
+              'css/ppt.css',
+              // 'https://fonts.googleapis.com/css?family=Roboto:100',
+          ];
+          
+          
+          self.addEventListener('install', function (event) {
+              console.log('install', event)
+              event.waitUntil(
+                  caches.open(CACHE_VERSION)
+                      .then(function (cache) {
+                          console.log('Opened cache');
+                          return cache.addAll(CACHE_FILES);
+                      })
+              );
+          });
+      </pre>
     </div>
 
-    <div class="step slide" data-x="3000" data-y="2000" data-rotate="90">
+    <div class="step" data-x="3000" data-y="2000" data-rotate="90">
       cache Api 3
     </div>
 

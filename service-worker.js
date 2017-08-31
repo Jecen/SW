@@ -2,16 +2,12 @@ importScripts('js/cache-polyfill.js');
 
 var CACHE_VERSION = 'app-v1';
 var CACHE_FILES = [
+    '/',
+    'ppt.html',
     'service-worker.js',
-    '/jacendemo.github.io/',
-    '/jacendemo.github.io/ppt.html',
-    'js/app.js',
-    'js/impress.js',
-    'images/background.jpeg',
-    'css/reset.css',
-    'css/styles.css',
-    'css/Roboto.woff2',
-    'css/ppt.css',
+    'js',
+    'images',
+    'css',
     // 'https://fonts.googleapis.com/css?family=Roboto:100',
 ];
 
